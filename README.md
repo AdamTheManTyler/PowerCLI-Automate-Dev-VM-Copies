@@ -2,9 +2,9 @@
 PowerCLI (VMware) script used to clone servers from production, place them on host with lowest memory utilization, then power each on in correct sequence..
 
 -----Description:
-The script is designed to be run as a scheduled task regularly against a licensed VMware cluster.  For this reason the scripts first task is to force power down existing running VMs created by the previous instance.  The next phase is to begin the clone operation.  There isa "Do until" loop built into the script to basically watch the vCenter tasks status until the clone operation is completed.
+The script is designed to be run as a scheduled task regularly against a VMware cluster.  For this reason the scripts first task is to force power down existing running VMs created by the previous instance.  The next phase is to begin the clone operation.  There is a "Do until" loop built into the script to basically watch the vCenter tasks status until the clone operation is completed, but otherwise the clone operations will occure synchronously to preserve a consistency point objective (CPO).
 
-Once the clone operation completes, there is a process the script completes to change the networking adapter of each cloned copy to a "dev" network.  When this process is done, there is a function called prior to the power on of each VM which evaluates the cluster's available hosts based on memory utilization.  Each VM will be configured to power on via the host with the most available RAM.  The purpose was for use on VMware clusters that were not already licensed for DRS.  In which case it would be unncecessary.
+Once the clone operation completes, the script changes the networking adapter of each cloned VM to a "dev" network.  When this process is done, there is a function called prior to the power on of each VM which evaluates the cluster's available hosts based on memory utilization.  Each VM will be configured to power on via the host with the most available RAM.  The purpose was for use on VMware clusters that were not already licensed for DRS.  In which case it would be unncecessary.
 
 
 
