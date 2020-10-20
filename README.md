@@ -12,6 +12,8 @@ This script was developed and tested with vCenter 6.7 and PowerCLI, versions to 
 VMware PowerCLI 11.5.0 build 14912921
 PowerShell: Version: 5.1.14409.1018
 
+There is an included email report on success or failure included in this script which I realize isn't very well documented.  I plan to continue developing.
+
 -----Requirements:
 
 --Requirement 1:
@@ -23,7 +25,7 @@ $cred=Get-Credential
 $cred.Password | ConvertFrom-Securestring
 $cred.Password | ConvertFrom-Securestring | Set-Content C:\scripts\vCenterPWD
 
-In this case the "vCenterPWD" file created by the above commands represents the password hash file.
+In this case the "vCenterPWD" file created by the above command represents the password hash file.
 within the PowerCLI-Automate-Dev-VM-Copies script, you will find the following lines which indicate which account is used to authenticate to vCenter and calling this password hash file.
 
 $username = 'useraccount@vsphere.local'
@@ -31,13 +33,14 @@ $pwd = Get-Content vCenterPWD | ConvertTo-SecureString
 $cred = New-Object System.Management.Automation.PsCredential $username, $pwd
  
 LogWrite 'Connect to VIServer'
-Connect-VIServer server.domain.local -credential $cred
+Connect-VIServer vcenter.domain.local -credential $cred
 
 
 
 
 --Requirement 2:
-The script is designed to be run as a scheduled task regularly against a VMware cluster.  For this reason the scripts first task is to force power down existing running VMs created by the previous run.
+The script is designed to be run as a scheduled task regularly against a VMware cluster.  For this reason the scripts first task is to force power down existing running VMs created by the previous run.  To narrow down the impact, this mechanism has been configured to only look at a specific cluster VM folder.  Throughout the script you will see comments starting as #Update -".  These are places where the script will need to be updated for your environment.  I'd like to spend more time makine the script run in a more generic form and placing vars toward the top.
 
 Regards,
 Adam Tyler
+adam@tylerlife.us
