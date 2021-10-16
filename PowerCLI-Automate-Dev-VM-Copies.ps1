@@ -611,6 +611,7 @@ $pwd2 = Get-Content RelayCred | ConvertTo-SecureString
 $cred2 = New-Object System.Management.Automation.PsCredential $username, $pwd2
 
 # Send email
+# This email method should be deprecated and replaced by PowerShell native "Send-MailMessage"  I've seen the below code fail on modern versions of PowerShell.
 $emailSmtpServer = "mail.domain.com"
 $emailSmtpServerPort = "25"
 $emailSmtpUser = "domain\username"
