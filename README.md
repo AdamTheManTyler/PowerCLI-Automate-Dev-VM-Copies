@@ -21,8 +21,8 @@ There is some manual work to get this script automated.  It's intended to be run
 
 Generate the hash file using the following PowerShell commands.
 
-$cred=Get-Credential
-$cred.Password | ConvertFrom-Securestring
+$cred=Get-Credential <br>
+$cred.Password | ConvertFrom-Securestring <br>
 $cred.Password | ConvertFrom-Securestring | Set-Content C:\scripts\vCenterPWD
 
 In this case the "vCenterPWD" file created by the above command represents the password hash file.
